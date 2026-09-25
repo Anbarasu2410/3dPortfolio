@@ -1,8 +1,47 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ── Design System Tokens (Light Theme) ────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Portfolio design tokens */
+  --ds-background: #FAFAFA;
+  --ds-surface: #FFFFFF;
+  --ds-text-primary: #09090B;
+  --ds-text-secondary: #71717A;
+  --ds-accent: #4F46E5;
+  --ds-accent-soft: rgba(79, 70, 229, 0.1);
+  --ds-success: #16A34A;
+  --ds-error: #DC2626;
+  --ds-border: rgba(0, 0, 0, 0.1);
+
+  /* Map to shadcn variables — always-light */
+  --background: var(--ds-background);
+  --foreground: var(--ds-text-primary);
+  --card: var(--ds-surface);
+  --card-foreground: var(--ds-text-primary);
+  --popover: var(--ds-surface);
+  --popover-foreground: var(--ds-text-primary);
+  --primary: var(--ds-accent);
+  --primary-foreground: #FFFFFF;
+  --secondary: var(--ds-surface);
+  --secondary-foreground: var(--ds-text-primary);
+  --muted: var(--ds-surface);
+  --muted-foreground: var(--ds-text-secondary);
+  --accent: var(--ds-accent-soft);
+  --accent-foreground: var(--ds-text-primary);
+  --destructive: var(--ds-error);
+  --border: var(--ds-border);
+  --input: var(--ds-border);
+  --ring: var(--ds-accent);
+  --radius: 0.75rem;
+
+  /* Section spacing */
+  --section-padding-y: 96px;
+  --section-padding-y-mobile: 48px;
+  --section-max-width: 1200px;
 }
 
 @theme inline {
@@ -10,17 +49,239 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+  --font-heading: var(--font-geist-sans);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Custom colors for use as Tailwind classes */
+  --color-ds-background: var(--ds-background);
+  --color-ds-surface: var(--ds-surface);
+  --color-ds-text-primary: var(--ds-text-primary);
+  --color-ds-text-secondary: var(--ds-text-secondary);
+  --color-ds-accent: var(--ds-accent);
+  --color-ds-accent-soft: var(--ds-accent-soft);
+  --color-ds-success: var(--ds-success);
+  --color-ds-error: var(--ds-error);
+  --color-ds-border: var(--ds-border);
+  --animate-shine: shine var(--duration) infinite linear;
+
+  @keyframes shine {
+    0% {
+      background-position: 0% 0%;
+    }
+
+    50% {
+      background-position: 100% 100%;
+    }
+
+    to {
+      background-position: 0% 0%;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Base Styles ──────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    background-color: var(--ds-background);
+    color: var(--ds-text-primary);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  /* Typography scale from DESIGN_SYSTEM.md */
+  h1 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ds-text-primary);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ds-text-primary);
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ds-text-primary);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ds-text-secondary);
+  }
+}
+
+/* ── Glass Nav ─────────── */
+.glass-nav {
+  background: rgba(250, 250, 250, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--ds-border);
+}
+
+/* ── Section layout helper ────────────────────────────────────── */
+.section-container {
+  max-width: var(--section-max-width);
+  margin: 0 auto;
+  padding: var(--section-padding-y) 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .section-container {
+    padding: var(--section-padding-y-mobile) 1rem;
+  }
+}
+
+/* Add a very subtle dot pattern overlay */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(var(--ds-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-5px, -6px) rotate(-2deg);
+  }
+
+  20% {
+    transform: translate(-7px, 0px) rotate(2deg);
+  }
+
+  30% {
+    transform: translate(7px, 6px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(3px, -3px) rotate(2deg);
+  }
+
+  50% {
+    transform: translate(-3px, 6px) rotate(-2deg);
+  }
+
+  60% {
+    transform: translate(-7px, 3px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(7px, 3px) rotate(-2deg);
+  }
+
+  80% {
+    transform: translate(-3px, -3px) rotate(2deg);
+  }
+
+  90% {
+    transform: translate(3px, 6px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -6px) rotate(-2deg);
+  }
+}
+
+.shake-hard {
+  animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+  overflow: hidden;
+}
+
+/* ── Skill badge pill ─────────────────────────────────────────── */
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--ds-accent-soft);
+  color: var(--ds-text-primary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  transition: all 0.2s ease;
+}
+
+.skill-pill:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* ── Animated shiny text keyframe ─────────────────────────────── */
+@keyframes shiny-text {
+
+  0%,
+  90%,
+  100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;
+  }
+
+  30%,
+  60% {
+    background-position: calc(100% + var(--shiny-width)) 0;
+  }
+}
+
+.animate-shiny-text {
+  animation: shiny-text 8s infinite;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
