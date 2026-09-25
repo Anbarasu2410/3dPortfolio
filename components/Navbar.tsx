@@ -94,7 +94,7 @@ export function Navbar() {
                     <li>
                         <Magnetic intensity={0.1}>
                             <a
-                                href="/Full_Stack_Developer.pdf"
+                                href="/3dPortfolio/Full_Stack_Developer.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="ml-2 inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg bg-[var(--ds-accent)] text-white hover:bg-[var(--ds-accent)]/90 transition-colors"
@@ -147,7 +147,7 @@ export function Navbar() {
                                 transition={{ delay: navLinks.length * 0.05 }}
                             >
                                 <a
-                                    href="/Full_Stack_Developer.pdf"
+                                    href="/3dPortfolio/Full_Stack_Developer.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center mt-2 px-4 py-2 text-sm font-medium rounded-lg bg-[var(--ds-accent)] text-white"

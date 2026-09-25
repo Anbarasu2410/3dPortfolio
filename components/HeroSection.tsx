@@ -104,7 +104,7 @@ export function HeroSection() {
                 >
                     <Magnetic>
                         <a
-                            href="/Full_Stack_Developer.pdf"
+                            href="/3dPortfolio/Full_Stack_Developer.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[var(--ds-accent)] text-white font-medium text-sm hover:bg-[var(--ds-accent)]/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
